@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getMenu } from "../../redux/features/menu/menuSlice";
 
 const MenusPage = () => {
-  const { list } = useSelector((state) => state.menu);
+  const dispatch = useDispatch();
+  const { list, loading, error } = useSelector((state) => state.menu);
+
+  useEffect(() => {
+    dispatch(getMenu());
+  }, []);
+
+  if (loading)
+    return (
+      <div>
+        <h1>loading...</h1>
+      </div>
+    );
 
   return (
     <div>
